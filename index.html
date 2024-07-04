@@ -7,17 +7,22 @@
 </head>
 <body>
     <h1>Website Page Counter</h1>
-    <p id="result">Calculating...</p>
+    <input type="text" id="urlInput" placeholder="Enter website URL">
+    <button onclick="getPageCount()">Get Page Count</button>
+    <p id="result"></p>
     <script>
-        fetch('https://0fa6-169-150-209-166.ngrok-free.app/')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('result').innerText = `Total number of pages: ${data.total_pages}`;
-            })
-            .catch(error => {
-                document.getElementById('result').innerText = 'Error fetching data';
-                console.error('Error:', error);
-            });
+        function getPageCount() {
+            const url = document.getElementById('urlInput').value;
+            fetch(`https://0fa6-169-150-209-166.ngrok-free.app/count_pages?url=${encodeURIComponent(url)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = `Total number of pages: ${data.total_pages}`;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = 'Error fetching data';
+                    console.error('Error:', error);
+                });
+        }
     </script>
 </body>
 </html>
